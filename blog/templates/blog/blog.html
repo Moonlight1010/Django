@@ -1,0 +1,48 @@
+{%extends 'base.html'%}
+{%block title%}
+Blog | Tech News
+{%endblock%}
+{% block main %}
+<!-- Modal -->
+<!-- Button trigger modal -->
+{%include 'partials/messages.html'%}
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Post
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST">
+          {% csrf_token %}
+          {{form.as_p}}
+          <input type="submit" class="btn btn-info" value="Post">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end -->
+<div class="container">
+    <div class="row">
+      {% for post in posts%}
+        <div class="card mb-5" style="height: 170px;">
+            <div class="card-body">
+              <h3>{{post.title | capfirst}}</h3>
+              <p>{{post.content | lower | truncatechars:70}}</p>
+              <div class="d-flex justify-content-between align-items-center my-2">
+                <a href="{%url 'blog-read' post.id%}" class=" text-decoration none text-dark btn border border-1 border-info ps-0">Read More</a>
+                <p>{{post.date_posted}}</p>
+              </div>
+            </div>
+          </div>
+      {%endfor%}
+    </div>
+</div>
+{%endblock%}

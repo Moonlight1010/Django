@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+<!-- {%block title%}
+Blog | Tech News
+{%endblock%} -->
+{% block main%}
+<div class="container">
+    <div class="row">
+        <div class="card mb-5">
+            <div class="card-body">
+              <h3>{{post.title | capfirst}}</h3>
+              <p>{{post.content | lower}}</p>
+              <div class="my-2">
+                <p>{{post.date_posted}}</p>
+              </div>
+            </div>
+            <a href="{% url 'blog-update' post.id%}" class="btn btn-info">Update</a>
+          </div>
+    </div>
+</div>
+{%endblock%}
+
+<p></p>
